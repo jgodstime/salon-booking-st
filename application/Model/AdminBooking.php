@@ -49,12 +49,10 @@ class AdminBooking extends Model
                 <tr>
                     <th>Booking ID</th>
                     <th>Customer</th>
-                    <th>Room Type</th>
-                    <th># of rooms</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
-                    <th>Days</th>
-                    <th>Amount Payable</th>
+                    <th>Service</th>
+                    <th>Booked Date</th>
+                    <th>Booked Time</th>
+                   
                     <th>Status</th>
                     <th>Created at</th>
                    
@@ -70,12 +68,10 @@ class AdminBooking extends Model
                 <td> <?php echo $row['booking_id'];?> </td>
 
                 <td><?php echo $this->getCustomerInfo($row['customer_id'])->name;?></td>
-                <td><?php echo $this->getServiceInfo($row['service_id'])->room_name;?></td>
-                <td> <?php echo $row['number_of_room'];?> </td>
-                <td> <?php echo $row['arrival'];?> </td>
-                <td> <?php echo $row['departure'];?> </td>
-                <td> <?php echo $row['number_of_days'];?> </td>
-                <td> <?php echo $row['amount_payable'];?> </td>
+                <td><?php echo $this->getServiceInfo($row['service_id'])->name;?></td>
+                <td> <?php echo date("M d, Y",strtotime($row['book_date']) );?> </td>
+                <td> <?php echo $row['book_time'];?> </td>
+                
                 <td> 
                 <form method="POST" onsubmit="return confirm('Do you really want to update booking status?');">
                     <input type="hidden" name="bookingId" value="<?php echo $row['id'];?>">
@@ -95,7 +91,7 @@ class AdminBooking extends Model
                     </button>
                     </form>     
                 </td>
-                <td><?php echo $row['created_at'];?></td>
+                <td><?php echo date("M d, Y h:i a",strtotime($row['created_at']) );?></td>
 
                
               

@@ -86,7 +86,7 @@ public function customersRecord(){
             <td> <?php echo $row['email'];?> </td>
             <td> <?php echo $row['phone'];?> </td>
             <td> <?php echo $row['address'];?> </td>
-            <td><?php echo $row['created_at'];?></td>
+            <td><?php echo date("M d, Y h:i a",strtotime($row['created_at']) );?></td>
 
            
           

@@ -73,7 +73,7 @@ echo $this->title; ?>
       <?php
         if(isset($_SESSION["adminId"])){
           ?>
-           <li class=""> <a href="<?php echo URL?>admin/services"><span class=""></span> Add Room</a></li>
+           <li class=""> <a href="<?php echo URL?>admin/services"><span class=""></span> Services</a></li>
           <li class=""> <a href="<?php echo URL?>admin/customers"><span class=""></span> Customers</a></li>
           <li class=""> <a href="<?php echo URL?>admin/bookings"><span class=""></span> Bookings</a></li>
 

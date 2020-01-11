@@ -57,7 +57,7 @@ define('PASSPORT_IMAGE', 'passport/');//my product image path
  */
 define('DB_TYPE', 'mysql');
 define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'hotel');
+define('DB_NAME', 'salon');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_CHARSET', 'utf8');

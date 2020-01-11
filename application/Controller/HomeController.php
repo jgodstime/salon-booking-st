@@ -98,12 +98,12 @@ public function booked()
 
         if(isset($_POST['completeBookingBtn'])){
 
-            (new \Mini\Model\Register)->saveBooking($_POST['bookingId'],$_SESSION['userId'],$_SESSION['serviceId'],$_SESSION['numberOfRooms'],$_SESSION['arrival'],$_SESSION['departure'],$_SESSION['amountPayable'],$_SESSION['days'],'Pending');
+            (new \Mini\Model\Register)->saveBooking($_POST['bookingId'],$_SESSION['userId'],$_SESSION['serviceId'],$_SESSION['serviceDate'],$_SESSION['serviceTime'],'Pending');
             
         }
         
 
-        $data["title"] = "Book for room"; 
+        $data["title"] = "Book for Service"; 
         $this->View->render('home/book', $data);
          
     }
@@ -112,24 +112,16 @@ public function booked()
 
     public function index()
     {
-        if(isset($_POST['arrivalDepartureBtn'])){
-            $arrival = ($_POST['arrival']);
-            $departure = ($_POST['departure']);
+        if(isset($_POST['selectServiceDetailsBtn'])){
+            $serviceId = ($_POST['serviceId']);
+            $serviceDate = ($_POST['serviceDate']);
+            $serviceTime = ($_POST['serviceTime']);
 
-            $_SESSION['arrival'] = $arrival ;
-            $_SESSION['departure'] = $departure;
-
-            // Determine days
-
-            $start = strtotime($arrival);
-            $end = strtotime($departure);
-
-            $days = ceil(abs($end - $start) / 86400);
-
+            $_SESSION['serviceId'] = $serviceId ;
+            $_SESSION['serviceDate'] = $serviceDate;
+            $_SESSION['serviceTime'] = $serviceTime;
 
            
-            $_SESSION['days'] = $days;
-
             header('location:'.URL.'home/book');
              
         }

@@ -6,7 +6,7 @@
  
 
 //  Check if all sesson is set for booking
- if(isset($_SESSION['arrival']) && !empty($_SESSION['arrival'])  && isset($_SESSION['departure']) && !empty($_SESSION['departure'])   &&  isset($_SESSION['serviceId']) && !empty($_SESSION['serviceId'])  &&  isset($_SESSION['numberOfRooms']) && !empty($_SESSION['numberOfRooms']) ){
+ if(isset($_SESSION['serviceTime']) && !empty($_SESSION['serviceTime'])  && isset($_SESSION['serviceDate']) && !empty($_SESSION['serviceDate'])   &&  isset($_SESSION['serviceId']) && !empty($_SESSION['serviceId']) ){
 
     
    if(isset($_SESSION['userId'])){
@@ -44,39 +44,15 @@
                    </tr>
 
                    <tr>
-                       <td>Arrival</td>
-                       <td><?php echo $_SESSION['arrival']; ?></td>
-                   </tr>
-
-                   <tr>
-                       <td>Departure</td>
-                       <td><?php echo $_SESSION['departure']; ?></td>
+                       <td>Date</td>
+                       <td><?php echo date("M d, Y",strtotime($_SESSION['serviceDate']) ); ?></td>
                    </tr>
                    <tr>
-                       <td>Room Category</td>
-                       <td><?php echo $Register->getServiceInfo($_SESSION['serviceId'])->room_name?></td>
-                    </tr>
-                    <tr>
-                       <td>Amount Per Night</td>
-                       <td>&#8358;<?php echo $Register->getServiceInfo($_SESSION['serviceId'])->price?></td>
-                    </tr>
-
-
-                   <tr>
-                       <td>Number of Room</td>
-                       <td><?php echo $_SESSION['numberOfRooms']; ?></td>
+                       <td>Time</td>
+                       <td><?php echo $_SESSION['serviceTime']; ?></td>
                    </tr>
 
-                   <tr>
-                       <td>Number of Days</td>
-                       <td><?php echo $_SESSION['days']; ?></td>
-                   </tr>
-
-                   <tr>
-                       <td>Amount Payable</td>
-                       <td><?php echo $_SESSION['amountPayable']; ?></td>
-                   </tr>
-                  
+                   
                   
                </tbody>
            </table>
@@ -116,7 +92,9 @@
 
             <?php
                 $msg->display();
-             $Register->listServices();
+            //  $Register->listServices();
+            echo '<a href="'.URL.'">Click to book</a>'
+
              ?>
         </div>
 

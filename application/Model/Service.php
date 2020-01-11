@@ -10,17 +10,23 @@ class Service extends Model
 {
     
 
-    public function saveService($roomName,$price,$numberOfRooms,$description,$fileName,$temporaryFile){
+    
+    public function selectService(){
+        $query = $this->db -> prepare("SELECT * FROM service_tbl ");
+        $query -> execute(array($id));
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){ 
 
-        $materialCode =  rand(3000,10000).rand(9000,10000).rand(200,4000);
-       
-        $writerCodeForThisMat = $materialCode;
-        $temp = explode(".", $fileName);
-        $newFileName = $writerCodeForThisMat . '.' . end($temp); //renaming the material with
-        move_uploaded_file($temporaryFile,'images/'.$newFileName);
+            echo '<option value="'.$row['id'].'">'.$row['name'].'</option>';
+        }
+    }
 
-    $queryInsert = $this->db->prepare("INSERT INTO service_tbl (id,room_name,price,number_of_room,number_of_room_booked,description,image,created_at) VALUES(?,?,?,?,?,?,?,now())");
-    $queryInsert->execute(array('',$roomName,$price,$numberOfRooms,0,$description,$newFileName));
+
+
+    public function saveService($serviceName,$description){
+
+      
+    $queryInsert = $this->db->prepare("INSERT INTO service_tbl (id,name,description,created_at) VALUES(?,?,?,now())");
+    $queryInsert->execute(array('',$serviceName,$description));
 
         //print_r($this->db->errorInfo());
 
@@ -40,18 +46,15 @@ class Service extends Model
     
             
     ?>
-    <h2 class=""> Room Category</h2>
+    <h2 class=""> Services</h2>
     <div class="table-responsive">
     
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th>Room Category</th>
-                    <th>Price</th>
-                    <th>Number of rooms</th>
-                    <th>Booked</th>
-                    <th>Room Image</th>
-                    <th>Description</th>
+                    <th>Service name</th>
+                  
+                    <!-- <th>Description</th> -->
                     <th>Created at</th>
                     <th>Delete</th>
                    
@@ -63,14 +66,11 @@ class Service extends Model
 
                 ?>
             <tr class="text-left">
-                <td><?php echo $row['room_name'];?></td>
-                <td><?php echo $row['price'];?></td>
-                <td><?php echo $row['number_of_room'];?></td>
-                <td><?php echo $row['number_of_room_booked'];?></td>
-                <td> <a href="<?php echo URL.'images/'. $row['image'];?>">See Image</a> </td>
-                <td> <?php echo $row['description'];?> </td>
+                <td><?php echo $row['name'];?></td>
+              
+                <!-- <td> <?php //echo $row['description'];?> </td> -->
 
-                <td><?php echo $row['created_at'];?></td>
+                <td><?php echo date("M d, Y h:i a",strtotime($row['created_at']) );?></td>
                 <td> 
                 <form method="POST" onsubmit="return confirm('Do you really want to delete?');">
                     <input type="hidden" name="serviceId" value="<?php echo $row['id'];?>">

@@ -76,28 +76,14 @@ class AdminController
 
         if(isset($_POST['addServiceBtn'])){
 
-             $fileName = $_FILES['file']['name'];
-            $temporaryFile = $_FILES['file']['tmp_name'];
+         
+            $serviceName = $_POST['name'];
+            // $price = $_POST['price'];
 
-            $allowed =  array('png','jpeg','jpg','gif');
-            $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-          
+            $description = 'none';//$_POST['description'];
 
-
-            $roomName = $_POST['roomName'];
-            $price = $_POST['price'];
-            $numberOfRooms = $_POST['numberOfRooms'];
-            $description = $_POST['description'];
-
-
-            if(!in_array($ext,$allowed)){
-                $this->msg->error('The file must be an image file.');	
-            }if(empty($roomName)){
-                $this->msg->error('Room name is required.');
-            }if(empty($price)){
-                $this->msg->error('Price is required.');
-            }if(empty($numberOfRooms)){
-                $this->msg->error('Number of room is required.');
+            if(empty($serviceName)){
+                $this->msg->error('Service name is required.');
             }if(empty($description)){
                 $this->msg->error('Service description is required.');
             }
@@ -105,7 +91,7 @@ class AdminController
                 header('location:' . $_SERVER['HTTP_REFERER']);
                 die();
             }else{
-                (new Service)->saveService($roomName,$price,$numberOfRooms,$description,$fileName,$temporaryFile);
+                (new Service)->saveService($serviceName,$description);
             }
         }                
 
